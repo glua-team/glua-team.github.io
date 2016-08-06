@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" />
+
+        <style>
+            #video {
+                position: absolute;
+                background: transparent;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+            }
+
+            .ytplayer-container {
+                position: absolute;
+                top: 0;
+                z-index: -1;
+            }
+
+            .ytplayer-shield {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="video"></div>
+        <div class="container">
+            <div class="ui center aligned very padded basic segment">
+                <div class="ui inverted header">
+                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team</h1>
+                </div>
+            </div>
+            <div class="ui center aligned very padded basic segment">
+                <div class="ui inverted header">
+                    <h1 id="mainheader" style="font-size: 2em; font-weight: lighter;">rolling in 1 line cac bypasses</h1>
+                </div>
+            </div>
+
+            <div class="ui center aligned very padded basic segment">
+                <div class="ui massive horizontal divided inverted selection list">
+                    <div class="item">
+                        <a href="https://steamcommunity.com/id/swadicalrag">
+                            <div class="content">
+                                <div class="header">swadical</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://steamcommunity.com/id/_cake">
+                            <div class="content">
+                                <div class="header">knotcake</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://steamcommunity.com/id/MeepDarknessMeep">
+                            <div class="content">
+                                <div class="header">meepen</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.youtubebackground.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.js"></script>
+
+    <script>
+        var hueVal = 0;
+
+        setInterval(function() {
+            hueVal += 5;
+            $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 70%)");
+        },200);
+
+        $(document).ready(function() {
+            $("#video").YTPlayer({
+                fitToBackground: true,
+                videoId: "TMZi25Pq3T8",
+                mute: false,
+                ratio: 4/3,
+                callback: function() {
+                    // $("#video").data("ytPlayer").player.seekTo(4.5);
+                }
+            });
+        });
+    </script>
+</html>
