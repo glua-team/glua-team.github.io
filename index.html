@@ -25,13 +25,28 @@
             .ui.basic.inverted.button {
                 width: 150px;
             }
+
+            #members {
+                transform-style: preserve-3d;
+                position: relative;
+                margin: auto;
+                width: 200px
+            }
+
+            #members>.item {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 200px;
+                backface-visibility: hidden;
+            }
         </style>
 
         <title>glua.team</title>
     </head>
     <body>
         <div id="video"></div>
-        <div class="container">
+        <div class="container" style="perspective: 1000px; transform-style: preserve-3d;">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
                     <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team</h1>
@@ -39,12 +54,12 @@
             </div>
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
-                    <h1 id="mainheader" style="font-size: 2em; font-weight: lighter;">rolling in 1 line cac bypasses</h1>
+                    <h1 style="font-size: 2em; font-weight: lighter;">rolling in 1 line cac bypasses</h1>
                 </div>
             </div>
 
             <div class="ui center aligned very padded basic segment">
-                <div class="ui massive horizontal divided inverted selection list">
+                <div id="members" class="ui massive inverted selection list">
                     <div class="item">
                         <a href="https://steamcommunity.com/id/swadicalrag">
                             <div class="content">
@@ -66,6 +81,27 @@
                             </div>
                         </a>
                     </div>
+                    <div class="item">
+                        <a href="https://steamcommunity.com/id/parakeet">
+                            <div class="content">
+                                <div class="header">parakeet</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://steamcommunity.com/id/zerf_">
+                            <div class="content">
+                                <div class="header">zerf</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://steamcommunity.com/id/mcd1992">
+                            <div class="content">
+                                <div class="header" style="color: #0F0;">daddy</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -81,6 +117,11 @@
                             <button class="ui basic inverted button">steam group</button>
                         </a>
                     </div>
+                    <div class="item">
+                        <a href="/skidquiz.png">
+                            <button class="ui basic inverted button">skid quiz</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,18 +133,27 @@
 
     <script>
         var hueVal = 0;
+        
+        var $members = $("#members>.item")
+        $members.each(function(i) {
+            $(this).css("transform","translateX(0px) rotateY("+(360/$members.length*i)+"deg) translateZ(100px)");
+        });
 
         setInterval(function() {
             hueVal += 5;
             $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 70%)");
+            
+            $("#mainheader").css("transform","rotateY("+Math.sin(hueVal/20)*20+"deg) rotateZ("+Math.sin(hueVal/30)*5+"deg)");
+            $("#members").css("transform","rotateY("+ -hueVal+"deg)");
+            //$("#secondheader").css("transform","rotateX("+ ((hueVal*-2)%180+90) +"deg)");
         },200);
 
         $(document).ready(function() {
             $("#video").YTPlayer({
                 fitToBackground: true,
-                videoId: "TMZi25Pq3T8",
+                videoId: "2a4gyJsY0mc",
                 mute: false,
-                ratio: 4/3,
+                //ratio: 4/3,
                 callback: function() {
                     // $("#video").data("ytPlayer").player.seekTo(4.5);
                 }
