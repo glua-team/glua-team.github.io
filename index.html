@@ -6,11 +6,17 @@
         <style>
             #video {
                 position: fixed;
+                left: -10px;
                 background: transparent;
                 overflow: hidden;
                 width: 100%;
                 height: 100%;
-                filter: blur(10px);
+                filter: blur(5px) sepia(75%) brightness(25%);
+                -webkit-filter: blur(5px) sepia(75%) brightness(25%);
+            }
+
+            #audio {
+                display: none;
             }
 
             body {
@@ -61,7 +67,8 @@
     </head>
     <body>
         <div id="video"></div>
-        <div class="container" style="perspective: 1000px; transform-style: preserve-3d;">
+        <div id="audio"></div>
+        <div class="container" style="perspective: 1000px;">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
                     <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team</h1>
@@ -159,7 +166,7 @@
         
         var members = $("#members>.item");
         members.each(function(i) {
-            $(this).css("transform","translateX(0px) rotateY("+(360/members.length*i)+"deg) translateZ(50px)");
+            $(this).css("transform","rotateY("+(360/members.length*i)+"deg) translateZ(50px)");
         });
 
         setInterval(function() {
@@ -176,12 +183,15 @@
         $(document).ready(function() {
             $("#video").YTPlayer({
                 fitToBackground: true,
-                videoId: "cM6njXGXmFY",
-                mute: false,
-                ratio: 21/9,
+                videoId: "TMZi25Pq3T8",
+                ratio: 4/3,
                 callback: function() {
-                    // $("#video").data("ytPlayer").player.seekTo(4.5);
+                    $("#video").data("ytPlayer").player.seekTo(10);
                 }
+            });
+            $("#audio").YTPlayer({
+                videoId: "ZKmcJgwZg4U",
+                mute: false
             });
         });
     </script>
