@@ -23,6 +23,28 @@
 
             body {
                 background-color: black;
+                /*background: linear-gradient(216deg, #4c4c4c, #00946c, #680094);
+                background-size: 600% 600%;
+
+                -webkit-animation: AnimationName 30s ease infinite;
+                -moz-animation: AnimationName 30s ease infinite;
+                animation: AnimationName 30s ease infinite;
+
+                @-webkit-keyframes AnimationName {
+                    0%{background-position:0% 50%}
+                    50%{background-position:100% 50%}
+                    100%{background-position:0% 50%}
+                }
+                @-moz-keyframes AnimationName {
+                    0%{background-position:0% 50%}
+                    50%{background-position:100% 50%}
+                    100%{background-position:0% 50%}
+                }
+                @keyframes AnimationName {
+                    0%{background-position:0% 50%}
+                    50%{background-position:100% 50%}
+                    100%{background-position:0% 50%}
+                }*/
             }
 
             .ytplayer-container {
@@ -73,7 +95,7 @@
         <div class="container" style="perspective: 1000px;">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
-                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team</h1>
+                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team 🍸</h1>
                 </div>
             </div>
             <div class="ui center aligned very padded basic segment">
@@ -230,7 +252,7 @@
         glua.team.addFriend("76561198005961369", "lixquid");
         glua.team.addFriend("76561198021109934", "Lenny.");
 
-        alertify.message("The Notorious B.I.G - \"Big Poppa\"");
+        alertify.message("J-Kwon - Tipsy");
     </script>
 
     <script type="text/javascript">
@@ -249,8 +271,8 @@
         $(document).ready(function() {
             $("#video").YTPlayer({
                 fitToBackground: true,
-                videoId: "phaJXp_zMYM",
-                // ratio: 4/3,
+                videoId: "VwXeN2FsE7w",
+                ratio: 4/3,
                 callback: function() {
                     $("#video").data("ytPlayer").player.seekTo(25);
                 },
