@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" />
         <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css"/>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" />
 
         <style>
             #video {
@@ -22,29 +23,28 @@
             }
 
             body {
-                background-color: black;
-                /*background: linear-gradient(216deg, #4c4c4c, #00946c, #680094);
+                background: linear-gradient(243deg, #005942, #008982, #4d7fbf);
                 background-size: 600% 600%;
 
-                -webkit-animation: AnimationName 30s ease infinite;
-                -moz-animation: AnimationName 30s ease infinite;
-                animation: AnimationName 30s ease infinite;
+                -webkit-animation: gluabackground 30s ease infinite;
+                -moz-animation: gluabackground 30s ease infinite;
+                animation: gluabackground 30s ease infinite;
 
-                @-webkit-keyframes AnimationName {
-                    0%{background-position:0% 50%}
-                    50%{background-position:100% 50%}
-                    100%{background-position:0% 50%}
+                @-webkit-keyframes gluabackground {
+                    0%{background-position:5% 0%}
+                    50%{background-position:96% 100%}
+                    100%{background-position:5% 0%}
                 }
-                @-moz-keyframes AnimationName {
-                    0%{background-position:0% 50%}
-                    50%{background-position:100% 50%}
-                    100%{background-position:0% 50%}
+                @-moz-keyframes gluabackground {
+                    0%{background-position:5% 0%}
+                    50%{background-position:96% 100%}
+                    100%{background-position:5% 0%}
                 }
-                @keyframes AnimationName {
-                    0%{background-position:0% 50%}
-                    50%{background-position:100% 50%}
-                    100%{background-position:0% 50%}
-                }*/
+                @keyframes gluabackground {
+                    0%{background-position:5% 0%}
+                    50%{background-position:96% 100%}
+                    100%{background-position:5% 0%}
+                }
             }
 
             .ytplayer-container {
@@ -85,17 +85,26 @@
             a.inverted {
                 color: #F9FAFB !important;
             }
+
+            * {
+                font-family: 'Open Sans', sans-serif !important;
+            }
+
+            .ui.horizontal.list:not(.celled) > .item:first-child {
+                padding-left: auto !important;
+                margin-left: unset !important;
+            }
         </style>
 
         <title>glua.team</title>
     </head>
     <body>
-        <div id="video"></div>
-        <!--div id="audio"></div-->
+        <!--<div id="video"></div>-->
+        <div id="audio"></div>
         <div class="container" style="perspective: 1000px;">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
-                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team 🍸</h1>
+                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team 🎹</h1>
                 </div>
             </div>
             <div class="ui center aligned very padded basic segment">
@@ -252,23 +261,24 @@
         glua.team.addFriend("76561198005961369", "lixquid");
         glua.team.addFriend("76561198021109934", "Lenny.");
 
-        alertify.message("J-Kwon - Tipsy");
+        alertify.message("Claude Debussy - Clair de Lune");
     </script>
 
     <script type="text/javascript">
         var hueVal = 0;
 
         setInterval(function() {
-            $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 70%)");
+            $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 80%)");
         },200);
 
         setInterval(function() {
-            hueVal += 1;
+            hueVal += 0.25;
             $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
             $("#friends").css("transform",`rotateY(${-hueVal}deg)`);
-        },1/40 * 1000);
+        },1/25 * 1000);
 
         $(document).ready(function() {
+            /*
             $("#video").YTPlayer({
                 fitToBackground: true,
                 videoId: "VwXeN2FsE7w",
@@ -278,12 +288,11 @@
                 },
                 mute: false
             });
-            /*
+            */
             $("#audio").YTPlayer({
-                videoId: "ZKmcJgwZg4U",
+                videoId: "-LXl4y6D-QI",
                 mute: false
             });
-            */
         });
     </script>
 </html>
