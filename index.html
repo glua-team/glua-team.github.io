@@ -199,6 +199,21 @@
             glua.team.updateFriends();
         };
         
+        function randint(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+        
+        glua.team.randomiseFriends = function() {
+            var array = [];
+            
+            while(glua.team.friends.length > 0) {
+                var idx = randint(0,glua.team.friends.length - 1);
+                
+                if(!glua.team.friends[idx]) {break;}
+                array[array.length] = glua.team.friends.splice(idx,1);
+            }
+            
+            glua.team.friends = array;
+        }
+        
         glua.team.members = [];
         
         glua.team.addMember = function(steamID64,avatarURL,nickname) {
@@ -269,6 +284,8 @@
         glua.team.addFriend("76561198026175948", "code_gs");
         glua.team.addFriend("76561198048132773", "notsosuper");
         glua.team.addFriend("76561198152808974", "deagler");
+        
+        glua.team.randomiseFriends();
 
         alertify.message("Claude Debussy - Clair de Lune");
     </script>
