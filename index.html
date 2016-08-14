@@ -61,7 +61,13 @@
             .ui.basic.inverted.button {
                 width: 150px;
             }
-
+			
+			#friends-container {
+				perspective: 1000px;
+				perspective-origin: 50% -200px;
+				
+			}
+			
             #friends {
                 transform-style: preserve-3d;
                 position: relative;
@@ -101,7 +107,7 @@
     <body>
         <!--<div id="video"></div>-->
         <div id="audio"></div>
-        <div class="container" style="perspective: 1000px;">
+        <div class="container">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
                     <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team 🎹</h1>
@@ -119,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="ui center aligned very padded basic segment"  data-tooltip="friends of glua.team" data-position="bottom center" data-inverted="">
+            <div id="friends-container" class="ui center aligned very padded basic segment"  data-tooltip="friends of glua.team" data-position="bottom center" data-inverted="">
                 <div id="friends" class="ui massive inverted selection list">
 
                 </div>
@@ -309,7 +315,7 @@
         setInterval(function() {
             hueVal += 0.35;
             $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
-            $("#friends").css("transform",`rotateY(${-hueVal}deg)`);
+            $("#friends").css("transform",`rotateY(${-hueVal}deg) translateY( -110px)`); //-110px
         },1/25 * 1000);
 
         $(document).ready(function() {
