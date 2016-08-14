@@ -312,10 +312,20 @@
             $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 80%)");
         },200);
 
+        var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
         setInterval(function() {
             hueVal += 0.35;
             $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
+<<<<<<< HEAD
             $("#friends").css("transform",`rotateY(${-hueVal}deg) translateY( -110px)`); //-110px
+=======
+            if(isChrome) {
+                $("#friends").css("transform",`rotateX(10deg) rotateY(${-hueVal}deg)`);
+            }
+            else {
+                $("#friends").css("transform",`rotateY(${-hueVal}deg)`);
+            }
+>>>>>>> master
         },1/25 * 1000);
 
         $(document).ready(function() {
