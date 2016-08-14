@@ -2,6 +2,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" />
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css"/>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" />
 
         <style>
             #video {
@@ -11,8 +14,8 @@
                 overflow: hidden;
                 width: 100%;
                 height: 100%;
-                filter: blur(5px) sepia(75%) brightness(25%);
-                -webkit-filter: blur(5px) sepia(75%) brightness(25%);
+                filter: blur(5px) sepia(75%) brightness(75%);
+                -webkit-filter: blur(5px) sepia(75%) brightness(75%);
             }
 
             #audio {
@@ -20,7 +23,29 @@
             }
 
             body {
-                background-color: black;
+                background: linear-gradient(308deg, #005942, #008982, #4d7fbf);
+                background-size: 600% 600%;
+
+                -webkit-animation: gluabackground 23s ease infinite;
+                -moz-animation: gluabackground 23s ease infinite;
+                -o-animation: gluabackground 23s ease infinite;
+                animation: gluabackground 23s ease infinite;
+            }
+
+            @-webkit-keyframes gluabackground {
+                0%{background-position:84% 0%}
+                50%{background-position:17% 100%}
+                100%{background-position:84% 0%}
+            }
+            @-moz-keyframes gluabackground {
+                0%{background-position:84% 0%}
+                50%{background-position:17% 100%}
+                100%{background-position:84% 0%}
+            }
+            @keyframes gluabackground {
+                0%{background-position:84% 0%}
+                50%{background-position:17% 100%}
+                100%{background-position:84% 0%}
             }
 
             .ytplayer-container {
@@ -37,14 +62,14 @@
                 width: 150px;
             }
 
-            #members {
+            #friends {
                 transform-style: preserve-3d;
                 position: relative;
                 margin: auto;
                 width: 200px
             }
 
-            #members>.item {
+            #friends>.item {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -61,17 +86,25 @@
             a.inverted {
                 color: #F9FAFB !important;
             }
+
+            * {
+                font-family: 'Open Sans', sans-serif !important;
+            }
+
+            .ui.horizontal.list:not(.celled) > .item:first-child {
+                padding: .5em !important;
+            }
         </style>
 
         <title>glua.team</title>
     </head>
     <body>
-        <div id="video"></div>
+        <!--<div id="video"></div>-->
         <div id="audio"></div>
         <div class="container" style="perspective: 1000px;">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
-                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team</h1>
+                    <h1 id="mainheader" style="font-size: 3.5em; font-weight: lighter;">glua.team 🎹</h1>
                 </div>
             </div>
             <div class="ui center aligned very padded basic segment">
@@ -81,57 +114,14 @@
             </div>
 
             <div class="ui center aligned padded basic segment">
-                <div class="ui massive horizontal inverted selection list">
-                    <div class="item">
-                        <img class="ui avatar image" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/4b/4b6bdc19575c252783f3274a5c9cf14bd74162d9_full.jpg">
-                        <a href="https://steamcommunity.com/id/swadicalrag">
-                            <div class="content">
-                                <div class="header">swadical</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <img class="ui avatar image" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3c/3cd1d1766e605084e3725972972dade771a44ec0_full.jpg">
-                        <a href="https://steamcommunity.com/id/_cake">
-                            <div class="content">
-                                <div class="header">knotcake</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <img class="ui avatar image" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/17/17b1dbf40df6d04dc2df750d13d722698e9a01d0_full.jpg">
-                        <a href="https://steamcommunity.com/id/MeepDarknessMeep">
-                            <div class="content">
-                                <div class="header">meepen</div>
-                            </div>
-                        </a>
-                    </div>
+                <div id="members" class="ui massive horizontal inverted selection list">
+                    
                 </div>
             </div>
 
             <div class="ui center aligned very padded basic segment"  data-tooltip="friends of glua.team" data-position="bottom center" data-inverted="">
-                <div id="members" class="ui massive inverted selection list">
-                    <div class="item">
-                        <a href="https://steamcommunity.com/id/mcd1992">
-                            <div class="content">
-                                <div class="header">mcd</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="https://steamcommunity.com/id/parakeet">
-                            <div class="content">
-                                <div class="header">parakeet</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="https://steamcommunity.com/id/zerf_">
-                            <div class="content">
-                                <div class="header">zerf</div>
-                            </div>
-                        </a>
-                    </div>
+                <div id="friends" class="ui massive inverted selection list">
+
                 </div>
             </div>
 
@@ -148,7 +138,12 @@
                         </a>
                     </div>
                     <div class="item">
-                        <a href="/skidquiz.png">
+                        <a href="http://bigserver.men/">
+                            <button class="ui basic inverted button">big server men</button>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="./skidquiz.png">
                             <button class="ui basic inverted button">skid quiz</button>
                         </a>
                     </div>
@@ -157,40 +152,180 @@
         </div>
     </body>
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.youtubebackground.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery.youtubebackground.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script>
 
-    <script>
-        var hueVal = 0;
+    <script type="text/javascript">
+        var glua = {team: {}};
         
-        var members = $("#members>.item");
-        members.each(function(i) {
-            $(this).css("transform","rotateY("+(360/members.length*i)+"deg) translateZ(50px)");
-        });
+        glua.team.friends = [];
+        
+        glua.team.updateFriends = function() {
+            var friends = $("#friends>.item");
+            friends.each(function(i) {
+                $(this).css("transform","rotateY("+(360/friends.length*i)+"deg) translateZ(" + Math.round(friends.length / 3 * 80) + "px)");
+            });
+        }
+        
+        glua.team.addFriend = function(steamID64,nickname) {
+            var friend = {
+                steamID64: steamID64,
+                nickname: nickname.toLowerCase()
+            };
+            
+            glua.team.friends[glua.team.friends.length] = friend;
+        }
+        
+        glua.team.constructFriends = function() {
+            for(var i=0;i < glua.team.friends.length;i++) {
+                var friend = glua.team.friends[i];
+                
+                var item = $("<div></div>")
+                    .addClass("item")
+                    .append(
+                        $("<a></a>")
+                            .attr("href","https://steamcommunity.com/profiles/" + friend.steamID64)
+                            .append(
+                                $("<div></div>")
+                                    .addClass("content")
+                                    .append(
+                                        $("<div></div>")
+                                            .addClass("header")
+                                            .text(friend.nickname)
+                                    )
+                            )
+                    );
+    
+                $("#friends").append(item);
+    
+                friend.element = item;
+            }
+
+            glua.team.updateFriends();
+        };
+        
+        function randint(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+        
+        glua.team.randomiseFriends = function() {
+            var array = [];
+            
+            while(glua.team.friends.length > 0) {
+                var idx = randint(0,glua.team.friends.length - 1);
+                
+                if(!glua.team.friends[idx]) {break;}
+                array[array.length] = glua.team.friends.splice(idx,1)[0];
+            }
+            
+            glua.team.friends = array;
+        }
+        
+        glua.team.members = [];
+        
+        glua.team.addMember = function(steamID64,avatarURL,nickname) {
+            var member = {
+                steamID64: steamID64,
+                avatarURL: avatarURL,
+                nickname: nickname
+            };
+
+            var item = $("<div></div>")
+                .addClass("item")
+                .append(
+                    $("<a></a>")
+                        .attr("href","https://steamcommunity.com/profiles/" + steamID64)
+                        .append(
+                            $("<img></img>")
+                                .addClass("ui avatar image")
+                                .attr("src",avatarURL)
+                        )
+                        .append(
+                            $("<div></div>")
+                                .addClass("content")
+                                .append(
+                                    $("<div></div>")
+                                        .addClass("header")
+                                        .text(nickname)
+                                )
+                        )
+                );
+
+            $("#members").append(item);
+
+            member.element = item;
+            glua.team.members[glua.team.members.length] = member;
+        };
+    </script>
+
+    <script type="text/javascript">
+        glua.team.addMember(
+            "76561198137637055",
+            "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/4b/4b6bdc19575c252783f3274a5c9cf14bd74162d9_full.jpg",
+            "swadical"
+        );
+
+        glua.team.addMember(
+            "76561197998805249",
+            "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3c/3cd1d1766e605084e3725972972dade771a44ec0_full.jpg",
+            "knotcake"
+        );
+
+        glua.team.addMember(
+            "76561198050165746",
+            "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/17/17b1dbf40df6d04dc2df750d13d722698e9a01d0_full.jpg",
+            "meepen"
+        );
+
+        glua.team.addFriend("76561198042764635", "aStonedPenguin");
+        glua.team.addFriend("76561197991350071","mcd1992");
+        glua.team.addFriend("76561197997945339","parakeet");
+        glua.team.addFriend("76561198052589582","zerf");
+        glua.team.addFriend("76561198093185405","google");
+        glua.team.addFriend("76561198199062669", "aria");
+        glua.team.addFriend("76561197999418456", "metaman");
+        glua.team.addFriend("76561198154133184", "velkon");
+        glua.team.addFriend("76561198005961369", "lixquid");
+        glua.team.addFriend("76561198021109934", "lenny.");
+        glua.team.addFriend("76561197993698973", "shigbeard");
+        glua.team.addFriend("76561198026175948", "code_gs");
+        glua.team.addFriend("76561198048132773", "notsosuper");
+        glua.team.addFriend("76561198152808974", "deagler");
+        
+        glua.team.randomiseFriends();
+        
+        glua.team.constructFriends();
+
+        alertify.message("Claude Debussy - Clair de Lune");
+    </script>
+
+    <script type="text/javascript">
+        var hueVal = 0;
 
         setInterval(function() {
-            $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 70%)");
+            $("#mainheader").css("color","hsl(" + (hueVal % 360) + ", 100%, 80%)");
         },200);
 
         setInterval(function() {
-            hueVal += 1;
-            $("#mainheader").css("transform","rotateY("+Math.sin(hueVal/20)*20+"deg) rotateZ("+Math.sin(hueVal/30)*5+"deg)");
-            $("#members").css("transform","rotateY("+ -hueVal+"deg)");
-            //$("#secondheader").css("transform","rotateX("+ ((hueVal*-2)%180+90) +"deg)");
-        },50);
+            hueVal += 0.35;
+            $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
+            $("#friends").css("transform",`rotateY(${-hueVal}deg)`);
+        },1/25 * 1000);
 
         $(document).ready(function() {
+            /*
             $("#video").YTPlayer({
                 fitToBackground: true,
-                videoId: "TMZi25Pq3T8",
+                videoId: "VwXeN2FsE7w",
                 ratio: 4/3,
                 callback: function() {
-                    $("#video").data("ytPlayer").player.seekTo(10);
-                }
+                    // $("#video").data("ytPlayer").player.seekTo(25);
+                },
+                mute: false
             });
+            */
             $("#audio").YTPlayer({
-                videoId: "ZKmcJgwZg4U",
+                videoId: "-LXl4y6D-QI",
                 mute: false
             });
         });
