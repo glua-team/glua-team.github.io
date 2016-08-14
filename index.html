@@ -165,7 +165,7 @@
         glua.team.updateFriends = function() {
             var friends = $("#friends>.item");
             friends.each(function(i) {
-                $(this).css("transform","rotateY("+(360/friends.length*i)+"deg) translateZ(" + Math.round(friends.length / 3 * 60) + "px)");
+                $(this).css("transform","rotateY("+(360/friends.length*i)+"deg) translateZ(" + Math.round(friends.length / 3 * 70) + "px)");
             });
         }
         
@@ -307,7 +307,7 @@
         },200);
 
         setInterval(function() {
-            hueVal += 0.25;
+            hueVal += 0.35;
             $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
             $("#friends").css("transform",`rotateY(${-hueVal}deg)`);
         },1/25 * 1000);
