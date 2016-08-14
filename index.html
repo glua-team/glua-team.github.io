@@ -174,27 +174,34 @@
                 steamID64: steamID64,
                 nickname: nickname
             };
-
-            var item = $("<div></div>")
-                .addClass("item")
-                .append(
-                    $("<a></a>")
-                        .attr("href","https://steamcommunity.com/profiles/" + steamID64)
-                        .append(
-                            $("<div></div>")
-                                .addClass("content")
-                                .append(
-                                    $("<div></div>")
-                                        .addClass("header")
-                                        .text(nickname)
-                                )
-                        )
-                );
-
-            $("#friends").append(item);
-
-            friend.element = item;
+            
             glua.team.friends[glua.team.friends.length] = friend;
+        }
+        
+        glua.team.constructFriends = function() {
+            for(var i=0;i < glua.team.friends.length;i++) {
+                var friend = glua.team.friends[i];
+                
+                var item = $("<div></div>")
+                    .addClass("item")
+                    .append(
+                        $("<a></a>")
+                            .attr("href","https://steamcommunity.com/profiles/" + friend.steamID64)
+                            .append(
+                                $("<div></div>")
+                                    .addClass("content")
+                                    .append(
+                                        $("<div></div>")
+                                            .addClass("header")
+                                            .text(friend.nickname)
+                                    )
+                            )
+                    );
+    
+                $("#friends").append(item);
+    
+                friend.element = item;
+            }
 
             glua.team.updateFriends();
         };
@@ -286,6 +293,8 @@
         glua.team.addFriend("76561198152808974", "deagler");
         
         glua.team.randomiseFriends();
+        
+        glua.team.constructFriends();
 
         alertify.message("Claude Debussy - Clair de Lune");
     </script>
