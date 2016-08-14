@@ -172,7 +172,7 @@
         glua.team.addFriend = function(steamID64,nickname) {
             var friend = {
                 steamID64: steamID64,
-                nickname: nickname
+                nickname: nickname.toLowerCase()
             };
             
             glua.team.friends[glua.team.friends.length] = friend;
