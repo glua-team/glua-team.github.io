@@ -215,7 +215,7 @@
                 var idx = randint(0,glua.team.friends.length - 1);
                 
                 if(!glua.team.friends[idx]) {break;}
-                array[array.length] = glua.team.friends.splice(idx,1);
+                array[array.length] = glua.team.friends.splice(idx,1)[0];
             }
             
             glua.team.friends = array;
