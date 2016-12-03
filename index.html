@@ -22,9 +22,30 @@
                 display: none;
             }
 
+            #music-ctl {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 90px;
+                padding: 0 30px 30px 0;
+                cursor: pointer;
+            }
+
+            .cover {
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkYGCQBOLnQAwGjDAGNgGwSgwVAE+2AgXahLM7AAAAAElFTkSuQmCC) repeat;
+                background-size: 10px;
+                position: fixed;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+            }
+
             body {
             	background-color: black;
-                /*background: linear-gradient(247deg, #e65d00, #d4c500, #00987c)*/;
+                /*background: linear-gradient(247deg, #e65d00,  #A14436, #8f5046);*/
+                background: linear-gradient(45deg,  transparent 0%, transparent 57%, #423246 100%),
+                linear-gradient(-45deg, #8f5046 0%,  #A14436 0.3%, #4C2556 112%,  transparent 11% ),
+                linear-gradient(-90deg, #A14436 100%, #A14436 65%, transparent 20% );
                 background-size: 600% 600%;
 
                 -webkit-animation: gluabackground 23s ease infinite;
@@ -86,6 +107,7 @@
                 left: 0;
                 width: 200px;
                 backface-visibility: hidden;
+                font-size: 1.1em;
             }
 
             .basic.card {
@@ -110,8 +132,10 @@
         <title>glua.team</title>
     </head>
     <body>
-        <div id="video"></div>
-        <!--<div id="audio"></div>-->
+        <div class="cover"></div>
+        <!--<div id="video"></div>-->
+        <div id="audio"></div>
+        <img id="music-ctl"></img>
         <div class="container">
             <div class="ui center aligned very padded basic segment">
                 <div class="ui inverted header">
@@ -158,12 +182,18 @@
                             <button class="ui basic inverted button">skid quiz</button>
                         </a>
                     </div>
+                    <div class="item">
+                        <a href="https://glua.github.io">
+                            <button class="ui basic inverted button">github</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
 
     <script src="./js/jquery.min.js"></script>
+    <script src="./js/cookie.js"></script>
     <script src="./js/jquery.youtubebackground.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.js"></script>
     <script src="https://cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script>
@@ -176,7 +206,7 @@
         glua.team.updateFriends = function() {
             var friends = $("#friends>.item");
             friends.each(function(i) {
-                $(this).css("transform","rotateY("+(360/friends.length*i)+"deg) translateZ(" + Math.round(friends.length / 3 * 80) + "px)");
+                $(this).css("transform","rotateY("+(360/friends.length*i)+"deg) translateZ(" + Math.round(friends.length / 3 * 90) + "px)");
             });
         }
         
@@ -310,8 +340,6 @@
         glua.team.randomiseFriends();
         
         glua.team.constructFriends();
-
-        alertify.message("Far East Movement - Like A G6 ft. The Cataracs, DEV");
     </script>
 
     <script type="text/javascript">
@@ -324,25 +352,81 @@
         setInterval(function() {
             hueVal += 0.35;
             $("#mainheader").css("transform",`rotateY(${Math.sin(hueVal/20)*20}deg) rotateZ(${Math.sin(hueVal/30)*5}deg)`);
-            $("#friends").css("transform",`rotateY(${-hueVal}deg) translateY( -110px)`);
+            $("#friends").css("transform",`scaleZ(0.10) rotateY(${-hueVal}deg) translateY( -20px)`);
+            $("#friends").css("perspective",`1000`);
         },1/25 * 1000);
+    </script>
 
-        $(document).ready(function() {
+    <script type="text/javascript">
+        glua.team.startAudio = function() {
+            /*
             $("#video").YTPlayer({
                 fitToBackground: true,
                 videoId: "w4s6H4ku6ZY",
                 ratio: 16/9,
                 callback: function() {
                     // $("#video").data("ytPlayer").player.seekTo(25);
+                    
+                    glua.team.updateAudioCTL();
                 },
                 mute: false
             });
-            /*
-            $("#audio").YTPlayer({
-                videoId: "3s32k3ohwxE",
-                mute: false
-            });
             */
+
+            $("#audio").YTPlayer({
+                videoId: "Rg01cCDqk1I",
+                mute: false,
+                callback: function() {
+                    // $("#audio").data("ytPlayer").player.seekTo(25);
+                    
+                    // $("#audio").data("ytPlayer").player.setVolume(0);
+
+                    glua.team.updateAudioCTL();
+                },
+            });
+
+            alertify.message("Neon Genesis Evangelion - Fly Me to the Moon");
+        }
+
+        glua.team.updateAudioCTL = function() {
+            if(Cookies.getJSON("music-disabled")) {
+                $("#music-ctl").attr("src","/icons/silent_white.png");
+                if($("#audio").data("ytPlayer")) {
+                    $("#audio").data("ytPlayer").player.setVolume(0);
+                }
+                if($("#video").data("ytPlayer")) {
+                    $("#video").data("ytPlayer").player.setVolume(0);
+                }
+            }
+            else {
+                $("#music-ctl").attr("src","/icons/loud_white.png");
+
+                var audioActive = false;
+
+                if($("#video").data("ytPlayer")) {
+                    $("#video").data("ytPlayer").player.setVolume(30);
+                    audioActive = true;
+                }
+                
+                if($("#audio").data("ytPlayer")) {
+                    $("#audio").data("ytPlayer").player.setVolume(30);
+                    audioActive = true;
+                }
+                
+                if(!audioActive) {
+                    glua.team.startAudio();
+                }
+            }
+        };
+
+        $(document).ready(function() {
+            $("#music-ctl").click(function() {
+                Cookies.set("music-disabled",JSON.stringify(!Cookies.getJSON("music-disabled"))),{expires: 365 * 10};
+
+                glua.team.updateAudioCTL();
+            });
+
+            glua.team.updateAudioCTL();
         });
     </script>
 </html>
