@@ -422,7 +422,7 @@
 
         $(document).ready(function() {
             $("#music-ctl").click(function() {
-                Cookies.set("music-disabled",JSON.stringify(!Cookies.getJSON("music-disabled"))),{expires: 365 * 10};
+                Cookies.set("music-disabled",JSON.stringify(!Cookies.getJSON("music-disabled")),{expires: 365 * 10});
 
                 glua.team.updateAudioCTL();
             });
