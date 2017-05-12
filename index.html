@@ -89,7 +89,7 @@
             .ui.basic.inverted.button {
                 width: 150px;
             }
-            
+
             #friends-container {
                 perspective: 1000px;
                 perspective-origin: 50% -200px;
@@ -151,7 +151,7 @@
 
             <div class="ui center aligned padded basic segment">
                 <div id="members" class="ui massive horizontal inverted selection list">
-                    
+
                 </div>
             </div>
 
@@ -206,29 +206,29 @@
 
     <script type="text/javascript">
         var glua = {team: {}};
-        
+
         glua.team.friends = [];
-        
+
         glua.team.updateFriends = function() {
             var friends = $("#friends>.item");
             friends.each(function(i) {
                 $(this).css("transform","rotateY("+(360/friends.length*i)+"deg) translateZ(" + Math.round(friends.length / 3 * 90) + "px)");
             });
         }
-        
+
         glua.team.addFriend = function(steamID64,nickname) {
             var friend = {
                 steamID64: steamID64,
                 nickname: nickname.toLowerCase()
             };
-            
+
             glua.team.friends[glua.team.friends.length] = friend;
         }
-        
+
         glua.team.constructFriends = function() {
             for(var i=0;i < glua.team.friends.length;i++) {
                 var friend = glua.team.friends[i];
-                
+
                 var item = $("<div></div>")
                     .addClass("item")
                     .append(
@@ -244,32 +244,32 @@
                                     )
                             )
                     );
-    
+
                 $("#friends").append(item);
-    
+
                 friend.element = item;
             }
 
             glua.team.updateFriends();
         };
-        
+
         function randint(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-        
+
         glua.team.randomiseFriends = function() {
             var array = [];
-            
+
             while(glua.team.friends.length > 0) {
                 var idx = randint(0,glua.team.friends.length - 1);
-                
+
                 if(!glua.team.friends[idx]) {break;}
                 array[array.length] = glua.team.friends.splice(idx,1)[0];
             }
-            
+
             glua.team.friends = array;
         }
-        
+
         glua.team.members = [];
-        
+
         glua.team.addMember = function(steamID64,avatarURL,nickname) {
             var member = {
                 steamID64: steamID64,
@@ -323,7 +323,7 @@
             "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/17/17b1dbf40df6d04dc2df750d13d722698e9a01d0_full.jpg",
             "meepen"
         );
-        
+
         glua.team.addMember(
             "76561198154133184",
             "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/58/58b57db0fd10f90135e4d0e53bcf00907101db5b_full.jpg",
@@ -364,9 +364,9 @@
         glua.team.addFriend("76561198044542936", "Ling");
         glua.team.addFriend("76561197960281616", "NootNootEh");
         glua.team.addFriend("76561198141863800", "XxLMM13xXgaming");
-        
+
         glua.team.randomiseFriends();
-        
+
         glua.team.constructFriends();
     </script>
 
@@ -394,7 +394,7 @@
                 ratio: 16/9,
                 callback: function() {
                     // $("#video").data("ytPlayer").player.seekTo(25);
-                    
+
                     glua.team.updateAudioCTL();
                 },
                 mute: false
@@ -406,7 +406,7 @@
                 mute: false,
                 callback: function() {
                     // $("#audio").data("ytPlayer").player.seekTo(25);
-                    
+
                     // $("#audio").data("ytPlayer").player.setVolume(0);
 
                     glua.team.updateAudioCTL();
@@ -435,12 +435,12 @@
                     $("#video").data("ytPlayer").player.setVolume(30);
                     audioActive = true;
                 }
-                
+
                 if($("#audio").data("ytPlayer")) {
                     $("#audio").data("ytPlayer").player.setVolume(30);
                     audioActive = true;
                 }
-                
+
                 if(!audioActive) {
                     glua.team.startAudio();
                 }
