@@ -84,7 +84,7 @@ permalink: /404.html
 					k = 1,
 					sum = 0,
 					octaves = 4,
-					fallout = 3.5;
+					fallout = Math.sin(Date.now() * 0.0025) * 5;
 
 				for (var i=0; i < octaves; ++i) {
 					effect *= fallout;
