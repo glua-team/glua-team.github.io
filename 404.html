@@ -35,13 +35,13 @@ permalink: /404.html
 				z-index: -100;
 				-webkit-transform: translateX(-50%) translateY(-50%);
 				transform: translateX(-50%) translateY(-50%);
-				background: url(404.png) no-repeat;
+				background: url(/404.png) no-repeat;
 				background-size: cover;
 			}
 
 			@media screen and (max-device-width: 800px) {
 				body {
-					background: url(404.png) #000 no-repeat center center fixed;
+					background: url(/404.png) #000 no-repeat center center fixed;
 				}
 
 				#stage {
@@ -252,7 +252,7 @@ permalink: /404.html
             var img = new Image;
             img.crossOrigin = "Anonymous";
             img.onload = function() { init(this); };
-            img.src = "404.png";
+            img.src = "/404.png";
             if (img.complete) {
                 init(img);
             }
