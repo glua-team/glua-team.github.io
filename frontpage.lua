@@ -281,6 +281,31 @@ concommand.Add("userinfo","lists all team members",function(argStr,args)
     end
 end)
 
+local function _pack(...) return {len = select("#",...),...} end
+local function _unpack(t) return table.unpack(t,1,t.len) end
+
+concommand.Add("l","runs lua",function(argStr,args)
+    local code = "return "..argStr
+    local fn,err = load(code)
+
+    if not fn then
+        code = argStr
+        fn,err = load(code)
+    end
+
+    if fn then
+        local ret = _pack(fn(code))
+
+        for i=1,ret.len do
+            ret[i] = tostring(ret[i])
+        end
+
+        term:writeln(table.concat(ret,"    "))
+    else
+        error(err)
+    end
+end)
+
 concommand.Add("links","prints all useful URLs",function()
     term:writeln("Discord Server: https://discord.gg/6rsbUU8")
     term:writeln("Steam Group: https://steamcommunity.com/groups/glua")
