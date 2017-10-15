@@ -21,6 +21,9 @@ reverse, control, exploit
 type `help` for all commands
 ]]
 
+local longestName = 0 -- used by pretty printer
+local members = {}
+
 local prompt = "glua.team>> "
 local linehistory = {}
 local currentHistory = 0
@@ -51,6 +54,69 @@ end
 local function clearWholeLine()
     term:write(("\b \b"):rep(255))
 end
+
+local function addMember(name,role,data)
+    longestName = math.max(longestName,utf8.len(name))
+    members[#members + 1] = {
+        name = name:lower(),
+        role = role,
+        data = data,
+    }
+end
+
+local function shuffleTeam()
+    local out = {}
+
+    while #members > 0 do
+        out[#out + 1] = table.remove(members,math.random(#members))
+    end
+
+    members = out
+end
+
+addMember("swadical","team lead",{steamID64 = "76561198137637055"})
+addMember("knotcake","team lead",{steamID64 = "76561197998805249"})
+addMember("meepen","team lead",{steamID64 = "76561198050165746"})
+
+addMember("velkon","team assistant",{steamID64 = "76561198154133184"})
+addMember("mcd1992","team assistant",{steamID64 = "76561197991350071"})
+
+addMember("parakeet","ctf roster",{steamID64 = "76561197997945339"})
+addMember("guurgle","ctf roster",{steamID64 = "76561198093185405"})
+addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
+
+addMember("Author.","friend",{steamID64 = "76561198076402038"})
+addMember("aStonedPenguin","friend",{steamID64 = "76561198042764635"})
+addMember("Bull","friend",{steamID64 = "76561198045139792"})
+addMember("zerf","friend",{steamID64 = "76561198052589582"})
+addMember("aria","friend",{steamID64 = "76561198199062669"})
+addMember("metaman","friend",{steamID64 = "76561197999418456"})
+addMember("lixquid","friend",{steamID64 = "76561198005961369"})
+addMember("lenny.","friend",{steamID64 = "76561198021109934"})
+addMember("PotcFdk","friend",{steamID64 = "76561198021245859"})
+addMember("code_gs","friend",{steamID64 = "76561198026175948"})
+addMember("orc","friend",{steamID64 = "76561198066396249"})
+addMember("notsosuper","friend",{steamID64 = "76561198048132773"})
+addMember("deagler","friend",{steamID64 = "76561198152808974"})
+addMember("knoxed","friend",{steamID64 = "76561197994704078"})
+addMember("mikey howell","friend",{steamID64 = "76561197983045206"})
+addMember("ott","friend",{steamID64 = "76561198033321448"})
+addMember("beast","friend",{steamID64 = "76561197964898382"})
+addMember("Potatofactory","friend",{steamID64 = "76561198074240735"})
+addMember("TFA","friend",{steamID64 = "76561198161775645"})
+addMember("Tenrys","friend",{steamID64 = "76561198025218043"})
+addMember("Trixter","friend",{steamID64 = "76561198109939061"})
+addMember("Footsies","friend",{steamID64 = "76561198106061489"})
+addMember("ARitz Cracker","friend",{steamID64 = "76561197997486016"})
+addMember("meharryp","friend",{steamID64 = "76561198071482825"})
+addMember("Coment","friend",{steamID64 = "76561198014573560"})
+addMember("Minty Fresh","friend",{steamID64 = "76561198004178530"})
+addMember("Datamats","friend",{steamID64 = "76561198067350699"})
+addMember("NootNootEh","friend",{steamID64 = "76561197960281616"})
+addMember("LMM","friend",{steamID64 = "76561198141863800"})
+addMember("dog = 💣","friend",{steamID64 = "76561198032705858"})
+addMember("moat","friend",{steamID64 = "76561198053381832"})
+addMember("GGG KILLER","friend",{steamID64 = "76561198044403949"})
 
 concommand = {}
 concommand.commands = {}
@@ -133,11 +199,70 @@ concommand.Add("clock","starts a clock program that runs forever",function()
     end
 end)
 
+concommand.Add("members","lists all team members",function()
+    shuffleTeam()
+
+    term:write("glua.team roster as of ")
+    term:writeln(os.date("%c"))
+
+    term:write("[ ")
+    term:write("\x1b[1;3;33m")
+    term:write("team lead")
+    term:write("\x1b[0m")
+    term:write("    ")
+    term:write("\x1b[1;3;32m")
+    term:write("team assistant")
+    term:write("\x1b[0m")
+    term:write("    ")
+    term:write("\x1b[1;3;36m")
+    term:write("ctf roster")
+    term:write("\x1b[0m")
+    term:write("    ")
+    term:write("friend")
+    term:writeln(" ]")
+
+    for i,memberData in ipairs(members) do
+        if memberData.role == "team lead" then
+            term:write("\x1b[1;3;33m")
+            term:write(memberData.name)
+            term:write((" "):rep(longestName - utf8.len(memberData.name)))
+            term:write("\x1b[0m")
+        elseif memberData.role == "team assistant" then
+            term:write("\x1b[1;3;32m")
+            term:write(memberData.name)
+            term:write((" "):rep(longestName - utf8.len(memberData.name)))
+            term:write("\x1b[0m")
+        elseif memberData.role == "ctf roster" then
+            term:write("\x1b[1;3;36m")
+            term:write(memberData.name)
+            term:write((" "):rep(longestName - utf8.len(memberData.name)))
+            term:write("\x1b[0m")
+        else
+            term:write(memberData.name)
+            term:write((" "):rep(longestName - utf8.len(memberData.name)))
+        end
+
+        if i % 4 == 0 then
+            term:writeln("")
+        else
+            term:write("    ")
+        end
+    end
+
+    if #members % 6 ~= 0 then term:writeln("") end
+end)
+
 local function main(doStartup)
     if doStartup then
         for line in gluaLogo:gmatch("([^\r\n]*)\r?\n") do
             term:writeln(line)
         end
+
+        term:writeln("")
+
+        concommand.Run("members")
+
+        term:writeln("")
 
         term:write(prompt)
     end
