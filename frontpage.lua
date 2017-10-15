@@ -22,6 +22,7 @@ reverse, control, exploit
 
 local longestName = 0 -- used by pretty printer
 local members = {}
+local membersByName = {}
 
 local prompt = "glua.team>> "
 local linehistory = {}
@@ -61,6 +62,7 @@ local function addMember(name,role,data)
         role = role,
         data = data,
     }
+    membersByName[name:lower()] = members[#members]
 end
 
 local function shuffleTeam()
@@ -73,14 +75,14 @@ local function shuffleTeam()
     members = out
 end
 
-addMember("swadical","team lead",{steamID64 = "76561198137637055"})
+addMember("swadical","team lead",{steamID64 = "76561198137637055",twitter = "iamswadical"})
 addMember("knotcake","team lead",{steamID64 = "76561197998805249"})
 addMember("meepen","team lead",{steamID64 = "76561198050165746"})
 
 addMember("velkon","team assistant",{steamID64 = "76561198154133184"})
 addMember("mcd1992","team assistant",{steamID64 = "76561197991350071"})
 
-addMember("parakeet","ctf roster",{steamID64 = "76561197997945339"})
+addMember("parakeet","ctf roster",{steamID64 = "76561197997945339",twitter = "cogg_rocks"})
 addMember("guurgle","ctf roster",{steamID64 = "76561198093185405"})
 addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
 addMember("GGG KILLER","ctf roster",{steamID64 = "76561198044403949"})
@@ -203,6 +205,7 @@ concommand.Add("members","lists all team members",function()
 
     term:write("glua.team roster as of ")
     term:writeln(os.date("%c"))
+    term:writeln("(use `userinfo <name>` to get additional info")
 
     term:write("[ ")
     term:write("\x1b[1;3;33m")
@@ -249,6 +252,33 @@ concommand.Add("members","lists all team members",function()
     end
 
     if #members % 6 ~= 0 then term:writeln("") end
+end)
+
+concommand.Add("userinfo","lists all team members",function(argStr,args)
+    local name = argStr:lower()
+    assert(name,"argument 1 needs to be a username!")
+
+    local memberData = membersByName[name]
+    if not memberData then
+        error("User `"..name.."` does not exist")
+    end
+
+    term:writeln(memberData.name)
+
+    if memberData.data.steamID64 then
+        term:write("Steam profile: https://steamcommunity.com/profiles/")
+        term:writeln(memberData.data.steamID64)
+    end
+
+    if memberData.data.twitter then
+        term:write("Twitter: https://twitter.com/")
+        term:writeln(memberData.data.twitter)
+    end
+
+    if memberData.data.keybase then
+        term:write("Keybase: https://keybase.io/")
+        term:writeln(memberData.data.keybase)
+    end
 end)
 
 concommand.Add("links","prints all useful URLs",function()
