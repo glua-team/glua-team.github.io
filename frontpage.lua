@@ -254,7 +254,7 @@ concommand.Add("members","lists all team members",function()
     if #members % 6 ~= 0 then term:writeln("") end
 end)
 
-concommand.Add("userinfo","lists all team members",function(argStr,args)
+concommand.Add("userinfo","lists member info",function(argStr,args)
     local name = argStr:lower()
     assert(name,"argument 1 needs to be a username!")
 
