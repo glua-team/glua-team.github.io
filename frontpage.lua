@@ -18,11 +18,11 @@ local gluaLogo = [[
 
 reverse, control, exploit
 
-type `help` for all commands
 ]]
 
 local longestName = 0 -- used by pretty printer
 local members = {}
+local membersByName = {}
 
 local prompt = "glua.team>> "
 local linehistory = {}
@@ -62,6 +62,7 @@ local function addMember(name,role,data)
         role = role,
         data = data,
     }
+    membersByName[name:lower()] = members[#members]
 end
 
 local function shuffleTeam()
@@ -74,16 +75,18 @@ local function shuffleTeam()
     members = out
 end
 
-addMember("swadical","team lead",{steamID64 = "76561198137637055"})
+addMember("swadical","team lead",{steamID64 = "76561198137637055",twitter = "iamswadical"})
 addMember("knotcake","team lead",{steamID64 = "76561197998805249"})
 addMember("meepen","team lead",{steamID64 = "76561198050165746"})
 
 addMember("velkon","team assistant",{steamID64 = "76561198154133184"})
 addMember("mcd1992","team assistant",{steamID64 = "76561197991350071"})
 
-addMember("parakeet","ctf roster",{steamID64 = "76561197997945339"})
+addMember("parakeet","ctf roster",{steamID64 = "76561197997945339",twitter = "cogg_rocks"})
 addMember("guurgle","ctf roster",{steamID64 = "76561198093185405"})
 addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
+addMember("GGG KILLER","ctf roster",{steamID64 = "76561198044403949"})
+addMember("Trixter","ctf roster",{steamID64 = "76561198109939061"})
 
 addMember("Author.","friend",{steamID64 = "76561198076402038"})
 addMember("aStonedPenguin","friend",{steamID64 = "76561198042764635"})
@@ -105,7 +108,6 @@ addMember("beast","friend",{steamID64 = "76561197964898382"})
 addMember("Potatofactory","friend",{steamID64 = "76561198074240735"})
 addMember("TFA","friend",{steamID64 = "76561198161775645"})
 addMember("Tenrys","friend",{steamID64 = "76561198025218043"})
-addMember("Trixter","friend",{steamID64 = "76561198109939061"})
 addMember("Footsies","friend",{steamID64 = "76561198106061489"})
 addMember("ARitz Cracker","friend",{steamID64 = "76561197997486016"})
 addMember("meharryp","friend",{steamID64 = "76561198071482825"})
@@ -116,7 +118,6 @@ addMember("NootNootEh","friend",{steamID64 = "76561197960281616"})
 addMember("LMM","friend",{steamID64 = "76561198141863800"})
 addMember("dog = 💣","friend",{steamID64 = "76561198032705858"})
 addMember("moat","friend",{steamID64 = "76561198053381832"})
-addMember("GGG KILLER","friend",{steamID64 = "76561198044403949"})
 
 concommand = {}
 concommand.commands = {}
@@ -204,6 +205,7 @@ concommand.Add("members","lists all team members",function()
 
     term:write("glua.team roster as of ")
     term:writeln(os.date("%c"))
+    term:writeln("(use `userinfo <name>` to get additional info")
 
     term:write("[ ")
     term:write("\x1b[1;3;33m")
@@ -252,6 +254,39 @@ concommand.Add("members","lists all team members",function()
     if #members % 6 ~= 0 then term:writeln("") end
 end)
 
+concommand.Add("userinfo","lists all team members",function(argStr,args)
+    local name = argStr:lower()
+    assert(name,"argument 1 needs to be a username!")
+
+    local memberData = membersByName[name]
+    if not memberData then
+        error("User `"..name.."` does not exist")
+    end
+
+    term:writeln(memberData.name)
+
+    if memberData.data.steamID64 then
+        term:write("Steam profile: https://steamcommunity.com/profiles/")
+        term:writeln(memberData.data.steamID64)
+    end
+
+    if memberData.data.twitter then
+        term:write("Twitter: https://twitter.com/")
+        term:writeln(memberData.data.twitter)
+    end
+
+    if memberData.data.keybase then
+        term:write("Keybase: https://keybase.io/")
+        term:writeln(memberData.data.keybase)
+    end
+end)
+
+concommand.Add("links","prints all useful URLs",function()
+    term:writeln("Discord Server: https://discord.gg/6rsbUU8")
+    term:writeln("Steam Group: https://steamcommunity.com/groups/glua")
+    term:writeln("Github: https://glua.github.io")
+end)
+
 local function main(doStartup)
     if doStartup then
         for line in gluaLogo:gmatch("([^\r\n]*)\r?\n") do
@@ -263,6 +298,8 @@ local function main(doStartup)
         concommand.Run("members")
 
         term:writeln("")
+
+        term:writeln("type `help` for all commands, or `links` to get in touch with us")
 
         term:write(prompt)
     end
@@ -392,9 +429,12 @@ term:on("key",function(_,key,ev)
             term:write(key)
         end
     elseif key then
-        term:write(key)
+        term:write((" "):rep(#linebuffer - lrPos))
+        term:write(("\b \b"):rep(#linebuffer))
         linebuffer = linebuffer:sub(1,lrPos)..key..linebuffer:sub(lrPos + 1,-1)
         lrPos = lrPos + 1
+        term:write(linebuffer)
+        term:write(("\x1b[D"):rep(math.max(0,#linebuffer - lrPos)))
     end
 end)
 
