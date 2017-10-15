@@ -392,9 +392,12 @@ term:on("key",function(_,key,ev)
             term:write(key)
         end
     elseif key then
-        term:write(key)
+        term:write((" "):rep(#linebuffer - lrPos))
+        term:write(("\b \b"):rep(#linebuffer))
         linebuffer = linebuffer:sub(1,lrPos)..key..linebuffer:sub(lrPos + 1,-1)
         lrPos = lrPos + 1
+        term:write(linebuffer)
+        term:write(("\x1b[D"):rep(math.max(0,#linebuffer - lrPos)))
     end
 end)
 
