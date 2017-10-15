@@ -18,7 +18,6 @@ local gluaLogo = [[
 
 reverse, control, exploit
 
-type `help` for all commands
 ]]
 
 local longestName = 0 -- used by pretty printer
@@ -252,6 +251,12 @@ concommand.Add("members","lists all team members",function()
     if #members % 6 ~= 0 then term:writeln("") end
 end)
 
+concommand.Add("links","prints all useful URLs",function()
+    term:writeln("Discord Server: https://discord.gg/6rsbUU8")
+    term:writeln("Steam Group: https://steamcommunity.com/groups/glua")
+    term:writeln("Github: https://glua.github.io")
+end)
+
 local function main(doStartup)
     if doStartup then
         for line in gluaLogo:gmatch("([^\r\n]*)\r?\n") do
@@ -263,6 +268,8 @@ local function main(doStartup)
         concommand.Run("members")
 
         term:writeln("")
+
+        term:writeln("type `help` for all commands, or `links` to get in touch with us")
 
         term:write(prompt)
     end
