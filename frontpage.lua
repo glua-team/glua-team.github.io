@@ -1,4 +1,6 @@
 -- I can't bear to deal with javascript's bullshit so we're now using lua
+-- code is kindof a mess because i don't want to split this into multiple files
+-- don't touch/use anything except concommand.Add
 
 js = require("js")
 
@@ -25,6 +27,30 @@ local currentHistory = 0
 local lrPos = 0
 local tempLine = ""
 local linebuffer = ""
+local inputIsActive = true
+local MAINTHREAD_RUNNING = false
+local murderedCoroutines = {}
+
+local function wait(msec)
+    local thread = coroutine.running()
+    js.global:setTimeout(function()
+        if murderedCoroutines[thread] then return end
+        if coroutine.status(thread) == "suspended" then
+            coroutine.resume(thread)
+        end
+    end,msec)
+    coroutine.yield()
+end
+
+local function clearInput()
+    term:write((" "):rep(#linebuffer - lrPos))
+    term:write(("\b \b"):rep(#linebuffer))
+    linebuffer = ""
+end
+
+local function clearWholeLine()
+    term:write(("\b \b"):rep(255))
+end
 
 concommand = {}
 concommand.commands = {}
@@ -99,16 +125,27 @@ concommand.Add("help","prints version and all registered commands",function()
     end
 end)
 
-local function main()
-    for line in gluaLogo:gmatch("([^\r\n]*)\r?\n") do
-        term:writeln(line)
+concommand.Add("clock","starts a clock program that runs forever",function()
+    while true do
+        clearWholeLine()
+        term:write(tostring(os.date("%c")))
+        wait(100)
     end
+end)
 
-    term:write(prompt)
+local function main(doStartup)
+    if doStartup then
+        for line in gluaLogo:gmatch("([^\r\n]*)\r?\n") do
+            term:writeln(line)
+        end
+
+        term:write(prompt)
+    end
 
     while true do
         local line = coroutine.yield()
 
+        MAINTHREAD_RUNNING = true
         xpcall(function()
             concommand.Run(line)
         end,function(err)
@@ -116,6 +153,13 @@ local function main()
             term:write(err)
             term:writeln("\x1b[0m")
         end)
+        term:write(prompt)
+        linehistory[#linehistory + 1] = linebuffer
+        currentHistory = #linehistory + 1
+        tempLine = false
+        lrPos = 0
+        linebuffer = ""
+        MAINTHREAD_RUNNING = false
     end
 end
 
@@ -124,7 +168,9 @@ local mainthread = coroutine.create(main)
 term:attachCustomKeyEventHandler(function(_,ev)
     if ev.altKey then return false end
     if ev.altGraphKey then return false end
-    if ev.ctrlKey then return false end
+    if ev.ctrlKey then
+        if ev.code ~= "KeyC" then return false end
+    end
     if ev.metaKey then return false end
 
     if ev.code == "ArrowUp" then
@@ -165,8 +211,25 @@ end)
 term:on("key",function(_,key,ev)
     if ev.altKey then return end
     if ev.altGraphKey then return end
-    if ev.ctrlKey then return end
+    if ev.ctrlKey then
+        if ev.code == "KeyC" then
+            murderedCoroutines[mainthread] = true
+            mainthread = coroutine.create(main)
+            coroutine.resume(mainthread,false)
+            term:writeln("")
+            term:write(prompt)
+            tempLine = false
+            lrPos = 0
+            linebuffer = ""
+            MAINTHREAD_RUNNING = false
+        end
+
+        return
+    end
     if ev.metaKey then return end
+
+    if not inputIsActive then return end
+    if MAINTHREAD_RUNNING then return end
 
     if ev.code == "ArrowUp" then return end
     if ev.code == "ArrowDown" then return end
@@ -193,12 +256,6 @@ term:on("key",function(_,key,ev)
     elseif ev.code == "Enter" then
         term:write("\r\n")
         coroutine.resume(mainthread,linebuffer)
-        term:write(prompt)
-        linehistory[#linehistory + 1] = linebuffer
-        currentHistory = #linehistory + 1
-        tempLine = false
-        lrPos = 0
-        linebuffer = ""
     elseif ev.code == "ArrowLeft" then
         if lrPos > 0 then
             lrPos = lrPos - 1
@@ -221,5 +278,5 @@ js.global:setTimeout(function()
     term:clear()
     term:focus()
 
-    coroutine.resume(mainthread)
+    coroutine.resume(mainthread,true)
 end,100)
