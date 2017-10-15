@@ -76,7 +76,7 @@ local function shuffleTeam()
 end
 
 addMember("swadical","team lead",{steamID64 = "76561198137637055",twitter = "iamswadical"})
-addMember("knotcake","team lead",{steamID64 = "76561197998805249"})
+addMember("notcake","team lead",{steamID64 = "76561197998805249"})
 addMember("meepen","team lead",{steamID64 = "76561198050165746"})
 
 addMember("velkon","team assistant",{steamID64 = "76561198154133184"})
