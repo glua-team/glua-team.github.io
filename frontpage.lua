@@ -279,6 +279,12 @@ concommand.Add("userinfo","lists member info",function(argStr,args)
         term:write("Keybase: https://keybase.io/")
         term:writeln(memberData.data.keybase)
     end
+    
+    if memberData.data.github then
+       term:write("GitHub: https://github.com/")
+       term:write(memberData.data.github)
+       term:writeln("/")
+    end
 end)
 
 local function _pack(...) return {len = select("#",...),...} end
