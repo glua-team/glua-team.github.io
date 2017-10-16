@@ -622,3 +622,28 @@ js.global:setTimeout(function()
 
     coroutine.resume(mainthread,true)
 end,100)
+
+local function restart()
+    term:blur()
+
+    wait(100)
+    term:clear()
+    term:focus()
+
+    mainthread = coroutine.create(main)
+    coroutine.resume(mainthread,true)
+    tempLine = false
+    lrPos = 0
+    linebuffer = ""
+    MAINTHREAD_RUNNING = false
+    coroutine.yield()
+end
+
+concommand.Add("restart","soft-restarts the terminal emulator",restart)
+concommand.Add("clear","clears the terminal emulator",function()
+    term:blur()
+
+    wait(100)
+    term:clear()
+    term:focus()
+end)
