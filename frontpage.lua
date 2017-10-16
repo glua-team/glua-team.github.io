@@ -65,7 +65,7 @@ local function queryInput()
 end
 
 local function queryRaw(question)
-    term:writeln(question)
+    term:write(question)
     local ans = queryInput()
     return ans
 end
@@ -592,7 +592,7 @@ term:on("key",function(_,key,ev)
             term:write(("\x1b[D"):rep(math.max(0,#linebuffer - lrPos)))
             return
         end
-    elseif ev.code == "Enter" then
+    elseif (ev.code == "Enter") or (key == "\n") or (key == "\r") or (key == "\r\n") then
         term:write("\r\n")
         coroutine.resume(mainthread,linebuffer)
     elseif ev.code == "ArrowLeft" then
