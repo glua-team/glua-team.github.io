@@ -94,14 +94,28 @@ local function shuffleTeam()
     members = out
 end
 
-addMember("swadical","team lead",{steamID64 = "76561198137637055",twitter = "iamswadical"})
-addMember("notcake","team lead",{steamID64 = "76561197998805249"})
-addMember("meepen","team lead",{steamID64 = "76561198050165746"})
+addMember("swadical","team lead",{
+    steamID64 = "76561198137637055",
+    twitter = "iamswadical",
+    github = "SwadicalRag",
+})
+addMember("notcake","team lead",{
+    steamID64 = "76561197998805249",
+    github = "notcake",
+})
+addMember("meepen","team lead",{
+    steamID64 = "76561198050165746",
+    github = "meepdarknessmeep",
+})
 
 addMember("velkon","team assistant",{steamID64 = "76561198154133184"})
 addMember("mcd1992","team assistant",{steamID64 = "76561197991350071"})
 
-addMember("parakeet","ctf roster",{steamID64 = "76561197997945339",twitter = "cogg_rocks"})
+addMember("parakeet","ctf roster",{
+    steamID64 = "76561197997945339",
+    twitter = "cogg_rocks",
+    github = "birdbrainswagtrain"
+})
 addMember("guurgle","ctf roster",{steamID64 = "76561198093185405",twitter = "iamguurgle"})
 addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
 addMember("GGG KILLER","ctf roster",{steamID64 = "76561198044403949",keybase = "gggkiller"})
