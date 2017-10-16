@@ -460,14 +460,9 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
 
     term:writeln("printing...")
     
-    local printWindow = js.global.window:open()
-    
-    printWindow.document:open("text/plain")
-    printWindow.document:write(js.global.JSON:Stringify(response))
-    printWindow.document:close()
-    printWindow:focus()
-    printWindow:print()
-    printWindow:close()
+    -- js.global.document:getElementsByClassName("xterm-rows")[0].id = "print-me-please"
+    -- js.global:printJS("print-me-please","html")
+    js.global.window:print()
     
     term:writeln("Please fax this print-out to the Big Server Men conglomerate")
     term:writeln("Thank you for your time and interest")
