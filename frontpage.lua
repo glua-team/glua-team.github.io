@@ -64,6 +64,12 @@ local function queryInput()
     return ans
 end
 
+local function queryRaw(question)
+    term:writeln(question)
+    local ans = queryInput()
+    return ans
+end
+
 local function clearWholeLine()
     term:write(("\b \b"):rep(255))
 end
@@ -384,7 +390,62 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
         "I am a friend",
         "I AM serverwatch",
     })
+    local playsPropkill = queryBool("I regularly play propkill")
+    local usesYoutube = queryBool("Youtube is my primary source for technical information")
+    local wantsToMakeHack = queryBool("My greatest ambition and primary motivation for learning glua is to make another shitty lua hack")
+    local facepunchShitposting = queryBool("I have posted on facepunch or in the glua group, asking how to code a cheat or anticheat")
+    local darkRPTroubles = query("I have posted on facepunch or in the glua group, asking for help with my DarkRP server",{
+        "Yes",
+        "Yes, oh god it was terrible! And it involved jobs.lua too! :'(",
+        "No",
+    })
+    local steamWorkshopShitposting = queryBool("I have had one or more items on the steam workshop deleted")
+    local shitAnticheatWriter = queryBool("I think an anticheat banning players for naughty filenames is acceptable")
+    local blackHatFanboi = queryBool("I admire, look up to, hero worship, or would like to join Anonymous, Lizard Squad, LulzSec, Poodlecorp, FaZe clan, Garry's Mod Lua Steam Chat, or some other shitty group of \"Black Hat\" manchildren")
 
+    local cacBypassInMail = queryBool("Please send me my one line CAC bypass in the mail")
+    local obfuscatorSkid = queryBool("I obfuscate all my code")
+    local cryptoIdiot = queryBool("BASE64 is a form of encryption")
+    local skidWebsiteMember = query("I appear on ___ cheater.team-like websites",{
+        "0",
+        "I AM on the cheater.team website",
+        "1-5",
+        "5-10",
+        "10-1337",
+    })
+
+    local idkButThisIsFunny = queryBool("HEY GUYS !CAKE IS MORALLY BANKRUPT!")
+
+    term:writeln("")
+    term:writeln("FINAL QUESTION!")
+
+    local theFuckGarryDid = query("the fuck garry did?",{
+        [[A table containing the values {"dog","cat"}]],
+        [[A coroutine.]],
+        [[A table containing itself.]],
+        [[Garry did the fuck!]],
+        [[javascript]],
+    })
+
+    term:writeln("")
+
+    local name = queryRaw("Your name: ")
+    local steamID = queryRaw("Your SteamID: ")
+    local mpghAccount = queryRaw("Your MPGH Account: ")
+
+    term:writeln("")
+
+    --[[
+        Parakeet👻 - Today at 3:14 PM
+        woah
+        for added touch, when complete, it should just try to print the page and then ask you to fax it to big server men(edited)
+    ]]
+
+
+    term:writeln("printing...")
+    js.global.window:print()
+    term:writeln("Please fax this print-out to the Big Server Men conglomerate")
+    term:writeln("Thank you for your time and interest")
 end)
 
 local function main(doStartup)
