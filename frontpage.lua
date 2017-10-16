@@ -51,6 +51,19 @@ local function clearInput()
     linebuffer = ""
 end
 
+local function queryInput()
+    MAINTHREAD_RUNNING = false
+    local ans = coroutine.yield()
+    MAINTHREAD_RUNNING = true
+    linehistory[#linehistory + 1] = linebuffer
+    currentHistory = #linehistory + 1
+    tempLine = false
+    lrPos = 0
+    linebuffer = ""
+
+    return ans
+end
+
 local function clearWholeLine()
     term:write(("\b \b"):rep(255))
 end
@@ -279,7 +292,7 @@ concommand.Add("userinfo","lists member info",function(argStr,args)
         term:write("Keybase: https://keybase.io/")
         term:writeln(memberData.data.keybase)
     end
-    
+
     if memberData.data.github then
        term:write("GitHub: https://github.com/")
        term:write(memberData.data.github)
@@ -318,6 +331,62 @@ concommand.Add("links","prints all useful URLs",function()
     term:writeln("Github: https://glua.github.io")
 end)
 
+concommand.Add("skidquiz","starts an interactive skid quiz",function()
+    local function query(question,options)
+        term:writeln(question)
+        for i,opt in ipairs(options) do
+            term:write("  ")
+            term:write(tostring(i))
+            term:write(". ")
+            term:writeln(tostring(opt))
+        end
+
+        while true do
+            term:write("Your answer: ")
+
+            local ans = queryInput()
+
+            ans = tonumber(ans)
+
+            if not ans or ans ~= ans or not options[ans] then
+                term:writeln("Invalid option, try again.")
+            else
+                return ans
+            end
+        end
+    end
+
+    local function queryBool(question)
+        return query(question,{"Yes","No"}) == 1
+    end
+
+    local quizType = query("How would you like to do this quiz?",{"Electronically","Via post"})
+
+    if quizType == 2 then
+        term:writeln("Please fill this out and post it to us: https://glua.team/skidquiz.png")
+        return
+    end
+
+    term:writeln("When you have completed this form, all data will be sent to the BIG SERVER MEN for processing.")
+    term:writeln("Confirmed non-skids will receive their skid pass in 5 to 5e99 business days.")
+    term:writeln("")
+    term:writeln("Cheating will result in being placed on the B.S.M. blacklist and immediate forced ejection from the Garry's Mod community.")
+    term:writeln("")
+    term:writeln("You don't want to be the next serverwatch. Do you?")
+    term:writeln("")
+    term:writeln("")
+
+    local postsOnOrVisitsCheatForums = queryBool("I regularly post on, or visit mpgh.net, hackforums.net, or gmodcheats.com")
+    local postsOnLeakForums = queryBool("I regularly post on leakforums.net")
+    local bannedFromMarketplace = queryBool("I have been banned from coderhire, scriptfodder or mod mountain")
+    local serverwatch = query("My relation to serverwatch: ",{
+        "I don't know this person",
+        "I am a friend",
+        "I AM serverwatch",
+    })
+
+end)
+
 local function main(doStartup)
     if doStartup then
         for line in gluaLogo:gmatch("([^\r\n]*)\r?\n") do
@@ -338,6 +407,12 @@ local function main(doStartup)
     while true do
         local line = coroutine.yield()
 
+        linehistory[#linehistory + 1] = linebuffer
+        currentHistory = #linehistory + 1
+        tempLine = false
+        lrPos = 0
+        linebuffer = ""
+
         MAINTHREAD_RUNNING = true
         xpcall(function()
             concommand.Run(line)
@@ -347,11 +422,7 @@ local function main(doStartup)
             term:writeln("\x1b[0m")
         end)
         term:write(prompt)
-        linehistory[#linehistory + 1] = linebuffer
-        currentHistory = #linehistory + 1
-        tempLine = false
-        lrPos = 0
-        linebuffer = ""
+
         MAINTHREAD_RUNNING = false
     end
 end
