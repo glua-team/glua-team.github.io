@@ -460,7 +460,7 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
 
     term:writeln("printing...")
     
-    local printWindow = window:open()
+    local printWindow = js.global.window:open()
     
     printWindow.document:open("text/plain")
     printWindow.document:write(js.global.JSON:Stringify(response))
