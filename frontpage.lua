@@ -395,32 +395,34 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
     term:writeln("You don't want to be the next serverwatch. Do you?")
     term:writeln("")
     term:writeln("")
+        
+    local response = {}
 
-    local postsOnOrVisitsCheatForums = queryBool("I regularly post on, or visit mpgh.net, hackforums.net, or gmodcheats.com")
-    local postsOnLeakForums = queryBool("I regularly post on leakforums.net")
-    local bannedFromMarketplace = queryBool("I have been banned from coderhire, scriptfodder or mod mountain")
-    local serverwatch = query("My relation to serverwatch: ",{
+    response.postsOnOrVisitsCheatForums = queryBool("I regularly post on, or visit mpgh.net, hackforums.net, or gmodcheats.com")
+    response.postsOnLeakForums = queryBool("I regularly post on leakforums.net")
+    response.bannedFromMarketplace = queryBool("I have been banned from coderhire, scriptfodder or mod mountain")
+    response.serverwatch = query("My relation to serverwatch: ",{
         "I don't know this person",
         "I am a friend",
         "I AM serverwatch",
     })
-    local playsPropkill = queryBool("I regularly play propkill")
-    local usesYoutube = queryBool("Youtube is my primary source for technical information")
-    local wantsToMakeHack = queryBool("My greatest ambition and primary motivation for learning glua is to make another shitty lua hack")
-    local facepunchShitposting = queryBool("I have posted on facepunch or in the glua group, asking how to code a cheat or anticheat")
-    local darkRPTroubles = query("I have posted on facepunch or in the glua group, asking for help with my DarkRP server",{
+    response.playsPropkill = queryBool("I regularly play propkill")
+    response.usesYoutube = queryBool("Youtube is my primary source for technical information")
+    response.wantsToMakeHack = queryBool("My greatest ambition and primary motivation for learning glua is to make another shitty lua hack")
+    response.facepunchShitposting = queryBool("I have posted on facepunch or in the glua group, asking how to code a cheat or anticheat")
+    response.darkRPTroubles = query("I have posted on facepunch or in the glua group, asking for help with my DarkRP server",{
         "Yes",
         "Yes, oh god it was terrible! And it involved jobs.lua too! :'(",
         "No",
     })
-    local steamWorkshopShitposting = queryBool("I have had one or more items on the steam workshop deleted")
-    local shitAnticheatWriter = queryBool("I think an anticheat banning players for naughty filenames is acceptable")
-    local blackHatFanboi = queryBool("I admire, look up to, hero worship, or would like to join Anonymous, Lizard Squad, LulzSec, Poodlecorp, FaZe clan, Garry's Mod Lua Steam Chat, or some other shitty group of \"Black Hat\" manchildren")
+    response.steamWorkshopShitposting = queryBool("I have had one or more items on the steam workshop deleted")
+    response.shitAnticheatWriter = queryBool("I think an anticheat banning players for naughty filenames is acceptable")
+    response.blackHatFanboi = queryBool("I admire, look up to, hero worship, or would like to join Anonymous, Lizard Squad, LulzSec, Poodlecorp, FaZe clan, Garry's Mod Lua Steam Chat, or some other shitty group of \"Black Hat\" manchildren")
 
-    local cacBypassInMail = queryBool("Please send me my one line CAC bypass in the mail")
-    local obfuscatorSkid = queryBool("I obfuscate all my code")
-    local cryptoIdiot = queryBool("BASE64 is a form of encryption")
-    local skidWebsiteMember = query("I appear on ___ cheater.team-like websites",{
+    response.cacBypassInMail = queryBool("Please send me my one line CAC bypass in the mail")
+    response.obfuscatorSkid = queryBool("I obfuscate all my code")
+    response.cryptoIdiot = queryBool("BASE64 is a form of encryption")
+    response.skidWebsiteMember = query("I appear on ___ cheater.team-like websites",{
         "0",
         "I AM on the cheater.team website",
         "1-5",
@@ -428,12 +430,12 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
         "10-1337",
     })
 
-    local idkButThisIsFunny = queryBool("HEY GUYS !CAKE IS MORALLY BANKRUPT!")
+    response.idkButThisIsFunny = queryBool("HEY GUYS !CAKE IS MORALLY BANKRUPT!")
 
     term:writeln("")
     term:writeln("FINAL QUESTION!")
 
-    local theFuckGarryDid = query("the fuck garry did?",{
+    response.theFuckGarryDid = query("the fuck garry did?",{
         [[A table containing the values {"dog","cat"}]],
         [[A coroutine.]],
         [[A table containing itself.]],
@@ -443,9 +445,9 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
 
     term:writeln("")
 
-    local name = queryRaw("Your name: ")
-    local steamID = queryRaw("Your SteamID: ")
-    local mpghAccount = queryRaw("Your MPGH Account: ")
+    response.name = queryRaw("Your name: ")
+    response.steamID = queryRaw("Your SteamID: ")
+    response.mpghAccount = queryRaw("Your MPGH Account: ")
 
     term:writeln("")
 
@@ -457,7 +459,16 @@ concommand.Add("skidquiz","starts an interactive skid quiz",function()
 
 
     term:writeln("printing...")
-    js.global.window:print()
+    
+    local printWindow = window:open()
+    
+    printWindow.document:open("text/plain")
+    printWindow.document:write(js.global.JSON:Stringify(response))
+    printWindow.document:close()
+    printWindow:focus()
+    printWindow:print()
+    printWindow:close()
+    
     term:writeln("Please fax this print-out to the Big Server Men conglomerate")
     term:writeln("Thank you for your time and interest")
 end)
