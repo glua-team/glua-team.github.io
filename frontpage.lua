@@ -110,12 +110,12 @@ addMember("meepen","team lead",{
 
 addMember("velkon","team assistant",{steamID64 = "76561198154133184"})
 addMember("mcd1992","team assistant",{steamID64 = "76561197991350071"})
-
-addMember("parakeet","ctf roster",{
+addMember("parakeet","team assistant",{
     steamID64 = "76561197997945339",
     twitter = "cogg_rocks",
     github = "birdbrainswagtrain"
 })
+
 addMember("guurgle","ctf roster",{steamID64 = "76561198093185405",twitter = "iamguurgle"})
 addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
 addMember("GGG KILLER","ctf roster",{steamID64 = "76561198044403949",keybase = "gggkiller"})
