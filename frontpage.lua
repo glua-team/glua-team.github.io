@@ -126,7 +126,11 @@ addMember("aStonedPenguin","friend",{steamID64 = "76561198042764635"})
 addMember("Bull","friend",{steamID64 = "76561198045139792"})
 addMember("zerf","friend",{steamID64 = "76561198052589582"})
 addMember("aria","friend",{steamID64 = "76561198199062669"})
-addMember("metaman","friend",{steamID64 = "76561197999418456"})
+addMember("metaman","friend",{
+    steamID64 = "76561197999418456",
+    github = "danielga",
+    keybase = "danielga"
+})
 addMember("lixquid","friend",{steamID64 = "76561198005961369"})
 addMember("lenny.","friend",{steamID64 = "76561198021109934"})
 addMember("PotcFdk","friend",{steamID64 = "76561198021245859"})
