@@ -133,7 +133,7 @@ addMember("metaman","friend",{
 })
 addMember("lixquid","friend",{steamID64 = "76561198005961369"})
 addMember("lenny.","friend",{steamID64 = "76561198021109934"})
-addMember("PotcFdk","friend",{steamID64 = "76561198021245859"})
+addMember("PotcFdk","friend",{steamID64 = "76561198021245859",github = "PotcFdk"})
 addMember("code_gs","friend",{steamID64 = "76561198026175948"})
 addMember("orc","friend",{steamID64 = "76561198066396249"})
 addMember("notsosuper","friend",{steamID64 = "76561198048132773"})
