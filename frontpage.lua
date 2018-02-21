@@ -123,7 +123,11 @@ addMember("guurgle","ctf roster",{
     github = "guuurgle"
 })
 addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
-addMember("GGG KILLER","ctf roster",{steamID64 = "76561198044403949",keybase = "gggkiller"})
+addMember("GGG KILLER","ctf roster",{
+    steamID64 = "76561198044403949",
+    keybase = "gggkiller",
+    github = "GGG-KILLER"
+})
 addMember("Trixter","ctf roster",{steamID64 = "76561198109939061"})
 
 addMember("Author.","friend",{steamID64 = "76561198076402038"})
