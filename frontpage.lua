@@ -123,6 +123,10 @@ addMember("GGG KILLER","ctf roster",{
     github = "GGG-KILLER"
 })
 addMember("Trixter","ctf roster",{steamID64 = "76561198109939061"})
+addMember("Mijyuoon","ctf roster",{
+    steamID64 = "76561198055264346",
+    github = "Mijyuoon",
+})
 
 addMember("Author.","friend",{steamID64 = "76561198076402038"})
 addMember("aStonedPenguin","friend",{steamID64 = "76561198042764635"})
@@ -154,7 +158,6 @@ addMember("meharryp","friend",{steamID64 = "76561198071482825"})
 addMember("Coment","friend",{steamID64 = "76561198014573560"})
 addMember("Minty Fresh","friend",{steamID64 = "76561198004178530"})
 addMember("Datamats","friend",{steamID64 = "76561198067350699"})
-addMember("NootNootEh","friend",{steamID64 = "76561197960281616"})
 addMember("LMM","friend",{steamID64 = "76561198141863800"})
 addMember("dog = 💣","friend",{steamID64 = "76561198032705858"})
 addMember("moat","friend",{steamID64 = "76561198053381832"})
