@@ -162,6 +162,7 @@ addMember("LMM","friend",{steamID64 = "76561198141863800"})
 addMember("dog = 💣","friend",{steamID64 = "76561198032705858"})
 addMember("moat","friend",{steamID64 = "76561198053381832"})
 addMember("stalker","friend",{steamID64 = "76561197996451757"})
+addMember("Spar","friend",{steamID64 = "76561198056741543", github = "GitSparTV"})
 
 concommand = {}
 concommand.commands = {}
