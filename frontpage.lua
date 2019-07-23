@@ -117,7 +117,11 @@ addMember("parakeet","team assistant",{
 })
 addMember("xavier","team assistant",{steamID64 = "76561198040907330"})
 
-addMember("Ling","ctf roster",{steamID64 = "76561198044542936"})
+addMember("Ling","ctf roster",{
+	steamID64 = "76561198044542936",
+	github = "ThatLing",
+	twitter = "ling_sec"
+})
 addMember("GGG KILLER","ctf roster",{
 	steamID64 = "76561198044403949",
 	keybase = "gggkiller",
@@ -156,7 +160,6 @@ addMember("ott","friend",{steamID64 = "76561198033321448"})
 addMember("beast","friend",{steamID64 = "76561197964898382"})
 addMember("Potatofactory","friend",{steamID64 = "76561198074240735"})
 addMember("Tenrys","friend",{steamID64 = "76561198025218043"})
-addMember("Footsies","friend",{steamID64 = "76561198106061489"})
 addMember("ARitz Cracker","friend",{steamID64 = "76561197997486016"})
 addMember("meharryp","friend",{steamID64 = "76561198071482825"})
 addMember("Coment","friend",{steamID64 = "76561198014573560"})
