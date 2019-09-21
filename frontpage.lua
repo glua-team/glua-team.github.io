@@ -10,7 +10,7 @@ term:writeln("loaded lua vm!")
 
 WEBCONSOLE_VERSION = "0.1.0"
 local gluaLogo = [[
-	   _            _
+       _            _
   __ _| |_  _ __ _ | |_ ___ __ _ _ __
  / _` | | || / _` ||  _/ -_) _` | '  \
  \__, |_|\_,_\__,_(_)__\___\__,_|_|_|_|
