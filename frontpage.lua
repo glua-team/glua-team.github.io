@@ -167,7 +167,7 @@ addMember("Minty Fresh","friend",{steamID64 = "76561198004178530"})
 addMember("Datamats","friend",{steamID64 = "76561198067350699"})
 addMember("LMM","friend",{steamID64 = "76561198141863800"})
 addMember("dog = 💣","friend",{steamID64 = "76561198032705858"})
-addMember("moat","friend",{steamID64 = "76561198053381832"})
+addMember("badger","friend",{steamID64 = "76561198059985871"})
 addMember("stalker","friend",{steamID64 = "76561197996451757"})
 addMember("Spar","friend",{steamID64 = "76561198056741543", github = "GitSparTV"})
 
