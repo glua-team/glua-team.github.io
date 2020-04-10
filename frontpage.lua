@@ -115,13 +115,13 @@ addMember("parakeet","team assistant",{
 	twitter = "cogg_rocks",
 	github = "birdbrainswagtrain"
 })
-addMember("xavier","team assistant",{steamID64 = "76561198040907330"})
-
-addMember("Ling","ctf roster",{
+addMember("Ling","team assistant",{
 	steamID64 = "76561198044542936",
 	github = "ThatLing",
 	twitter = "ling_sec"
 })
+
+addMember("xavier","ctf roster",{steamID64 = "76561198040907330"})
 addMember("GGG KILLER","ctf roster",{
 	steamID64 = "76561198044403949",
 	keybase = "gggkiller",
